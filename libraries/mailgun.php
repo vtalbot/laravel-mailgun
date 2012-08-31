@@ -11,11 +11,11 @@
 
 class Mailgun
 {
-  public static function &message(\Closure $setter = null)
+  /*public static function &message(\Closure $setter = null)
   {
     $mg = new Mailgun('messages', 'POST', array(), $setter);
     return $mg;
-  }
+  }*/
 
   public static function &unsubscribe(\Closure $setter = null)
   {
@@ -95,10 +95,13 @@ class Mailgun
     return $mg;
   }
 
-  public static function &__callStatic($method, $arguments)
+  public static function &__callStatic($request, $arguments)
   {
-    $request = array_shift($arguments);
-    $method = array_shift($arguments);
+    $method = 'GET';
+    if (count($arguments) > 1)
+    {
+      $method = array_shift($arguments);
+    }
     $setter = array_shift($arguments);
     $mg = new Mailgun($request, $method, array(), $setter);
     return $mg;
@@ -125,7 +128,7 @@ class Mailgun
   public function deliver()
   {
     $this->_ch = curl_init();
-    
+
     $url = Config::get('mailgun::mailgun.base_url');
     $url .= Config::get('mailgun::mailgun.domain').'/';
     $url .= $this->_cmd;
