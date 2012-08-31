@@ -44,9 +44,13 @@ Default static functions has been included too: message, unsubscribe, unsubscrib
 
 `$method` is optional and by default set to 'GET'. Multiple functions to change that is available: `post`, `get`, `put`, `delete`.
 
+`path` function will add more data to url.
+
 **Note:** `o:tag` can be use by `$mg->param('o:tag', $value)`
 
 ## [Sending messages](http://documentation.mailgun.net/api-sending.html)
+
+    Mailgun::message(\Closure $setter = null)
 
 ### Parameters
 
@@ -90,3 +94,26 @@ Default static functions has been included too: message, unsubscribe, unsubscrib
       "message": "Queued. Thank your.",
       "id": "<20111115080851.17787.43714@samples.mailgun.org>"
     }
+
+## [Unsubscribes](http://documentation.mailgun.net/api-unsubscribes.html)
+
+    Mailgun::unsubscribe(\Closure $setter = null) // POST
+
+### Parameters
+
+* `address`, Valid email address.
+* `tag`, Tag to unsubscribe from, use `*` to unsubscribe address from domain.
+
+### Example
+
+    Mailgun::unsubscribe(function($mg) {
+      $mg->address('your@email.com')
+         ->tag('*');
+
+      return $mg;
+    })->deliver();
+
+
+***More documentation to follow***
+
+But basicly, you can go to the [documentation](http://documentation.mailgun.net/api_reference.html) from Mailgun and see what parameters for each call.
