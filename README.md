@@ -18,13 +18,13 @@ You'll have to edit the `config/mailgun.php` to change `domain` for yours and `a
 
 ## Usage example
 
-  Mailgun::message(function($mg) {
-    $mg->from('your@email.com')
-       ->to('other@email.com')
-       ->text('shazam');
+    Mailgun::message(function($mg) {
+      $mg->from('your@email.com')
+         ->to('other@email.com')
+         ->text('shazam');
 
-    return $mg;
-  })->deliver();
+      return $mg;
+    })->deliver();
 
 Base on a [tweet](http://twitter.com/laravelphp/status/235951044348223488) from Laravel. I've decided to make something similar to it for Mailgun API.
 
@@ -32,15 +32,15 @@ Base on a [tweet](http://twitter.com/laravelphp/status/235951044348223488) from 
 
 Inside the previous example, you can add any variables to the Mailgun instance by using setter or functions:
 
-  // by function
-  $mg->from('your@email.com');
-  
-  // by setter
-  $mg->from = 'your@email.com';
+    // by function
+    $mg->from('your@email.com');
+    
+    // by setter
+    $mg->from = 'your@email.com';
 
 Default static functions has been included too: message, unsubscribe, unsubscribes, complaint, complaints, bounce, bounces, stats, log, route, routes, mailbox, mailboxes and compaigns. But you can call something else if a new function in the Mailgun API becomes available by using the magic __callStatic function:
 
-  Mailgun::new_function([$method], Closure)->deliver();
+    Mailgun::new_function([$method], Closure)->deliver();
 
 `$method` is optional and by default set to 'GET'. Multiple functions to change that is available: `post`, `get`, `put`, `delete`.
 
@@ -72,21 +72,21 @@ Default static functions has been included too: message, unsubscribe, unsubscrib
 
 ### Example
 
-  Mailgun::message(function($mg) {
-    $mg->from('your@email.com')
-       ->to('other@email.com')
-       ->subject('test')
-       ->text('some text here')
-       ->attachment('file.png')
-       ->attachment('file2.png')
-       ->param('o:tag', 'august');
+    Mailgun::message(function($mg) {
+      $mg->from('your@email.com')
+         ->to('other@email.com')
+         ->subject('test')
+         ->text('some text here')
+         ->attachment('file.png')
+         ->attachment('file2.png')
+         ->param('o:tag', 'august');
 
-    return $mg;
-  })->deliver();
+      return $mg;
+    })->deliver();
 
 ### Response
 
-  {
-    "message": "Queued. Thank your.",
-    "id": "<20111115080851.17787.43714@samples.mailgun.org>"
-  }
+    {
+      "message": "Queued. Thank your.",
+      "id": "<20111115080851.17787.43714@samples.mailgun.org>"
+    }
