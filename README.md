@@ -2,17 +2,17 @@
 
 A Laravel Mailgun bundle, installable via the Artisan
 
-  php artisan bundle:install mailgun
+   php artisan bundle:install mailgun
 
 Add it to `application/bundles.php`
 
-  return array(
-    ...
-    'mailgun' => array(
-      'auto' => true
-    ),
-    ...
-  );
+    return array(
+      ...
+      'mailgun' => array(
+        'auto' => true
+      ),
+      ...
+    );
 
 You'll have to edit the `config/mailgun.php` to change `domain` for yours and `api_key` from the your account information on [Mailgun](http://www.mailgun.net).
 
