@@ -11,11 +11,11 @@
 
 class Mailgun
 {
-  /*public static function &message(\Closure $setter = null)
+  public static function &message(\Closure $setter = null)
   {
     $mg = new Mailgun('messages', 'POST', array(), $setter);
     return $mg;
-  }*/
+  }
 
   public static function &unsubscribe(\Closure $setter = null)
   {
