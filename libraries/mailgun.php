@@ -171,7 +171,7 @@ class Mailgun
       CURLOPT_SSL_VERIFYPEER => false,
     );
 
-    if ($this->_method === 'POST')
+    if ($this->_method === 'POST' || $this->_method === 'PUT')
     {
       $options[CURLOPT_POST] = true;
       $options[CURLOPT_POSTFIELDS] = join('&', $q);
