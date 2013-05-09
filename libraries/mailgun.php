@@ -130,7 +130,13 @@ class Mailgun
     $this->_ch = curl_init();
 
     $url = Config::get('mailgun.base_url', Config::get('mailgun::mailgun.base_url');
-    $url .= Config::get('mailgun.domain', Config::get('mailgun::mailgun.domain')).'/';
+
+    if ($this->_cmd != 'routes' && $this->_cmd != 'lists') {
+      /* The routes and lists commands do not use domain
+       * in their URLs */
+      $url .= Config::get('mailgun.domain', Config::get('mailgun::mailgun.domain')).'/';
+    }
+    
     $url .= $this->_cmd;
 
     if (isset($this->_path))
