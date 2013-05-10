@@ -129,8 +129,14 @@ class Mailgun
   {
     $this->_ch = curl_init();
 
-    $url = Config::get('mailgun::mailgun.base_url');
-    $url .= Config::get('mailgun::mailgun.domain').'/';
+    $url = Config::get('mailgun.base_url', Config::get('mailgun::mailgun.base_url'));
+
+    if ($this->_cmd != 'routes' && $this->_cmd != 'lists') {
+      /* The routes and lists commands do not use domain
+       * in their URLs */
+      $url .= Config::get('mailgun.domain', Config::get('mailgun::mailgun.domain')).'/';
+    }
+
     $url .= $this->_cmd;
 
     if (isset($this->_path))
@@ -155,7 +161,7 @@ class Mailgun
       }
     }
 
-    $auth = 'api:'.Config::get('mailgun::mailgun.api_key');
+    $auth = 'api:'.Config::get('mailgun.api_key', Config::get('mailgun::mailgun.api_key'));
 
     if ($this->_method === 'GET' and count($q) > 0)
     {
@@ -171,7 +177,7 @@ class Mailgun
       CURLOPT_SSL_VERIFYPEER => false,
     );
 
-    if ($this->_method === 'POST')
+    if ($this->_method === 'POST' || $this->_method === 'PUT')
     {
       $options[CURLOPT_POST] = true;
       $options[CURLOPT_POSTFIELDS] = join('&', $q);
